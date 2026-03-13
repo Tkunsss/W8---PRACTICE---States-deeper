@@ -1,18 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function App() {
-  const getScoreBarStyle = () => {
-    // 1- Compute width
-    const scoreWidth = `40%`;
 
-    // 2- Compute color (optional)
-    let scoreColor = `#f3bc47`;
+  const [score, setScore] = useState(0);
 
-    // 3 - Return the style object
-    return {
-      width: scoreWidth,
-      backgroundColor: scoreColor,
-    };
+  // 1- Compute width
+  const clampedScore = Math.min(10, Math.max(0, Number(score) || 0));
+  const scoreWidth = `${(clampedScore / 10) * 100}%`;
+
+  // 2- Compute color (optional)
+  let scoreColor = "#f3bc47";
+
+  // 3- Style object
+  const scoreBarStyle = {
+    width: scoreWidth,
+    backgroundColor: scoreColor
   };
 
   return (
@@ -21,10 +23,16 @@ export default function App() {
         <h1>My Score in React</h1>
 
         <small>Enter a score (0 to 10): </small>
-        <input type="number" min="0" max="10"></input>
+        <input
+          type="number"
+          min="0"
+          max="10"
+          value={score}
+          onChange={(e) => setScore(e.target.value)}
+        />
 
         <div className="score-bar">
-          <div className="score-bar-value" style={getScoreBarStyle()}></div>
+          <div className="score-bar-value" style={scoreBarStyle}></div>
         </div>
       </div>
     </>

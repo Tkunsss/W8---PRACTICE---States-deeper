@@ -20,6 +20,10 @@ const INITIAL_STUFFS = [
 
 export default function App() {
   const [stuffs, setStuffs] = React.useState(INITIAL_STUFFS);
+  const addStuff = (name, price) => {
+    console.log(`object ${name}, price ${price}$`);
+    setStuffs((prevStuffs) => [...prevStuffs, { name, price }]);
+  };
 
   return (
     <>
@@ -27,7 +31,7 @@ export default function App() {
         <h1>My Stuff</h1>
       </header>
 
-      <StuffForm></StuffForm>
+      <StuffForm onAddStuff={addStuff}></StuffForm>
 
       <div className="stuff-list">
         {stuffs.map((stuff, index) => (
